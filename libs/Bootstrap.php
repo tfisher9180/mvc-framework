@@ -5,9 +5,16 @@
 		function __construct() {
 
 			// get the URL and parse it
-			$url = $_GET['url'];
+			$url = isset($_GET['url']) ? $_GET['url'] : null;
 			$url = rtrim($url, '/');
 			$url = explode('/', $url);
+
+			if (empty($url[0])) {
+				require 'controllers/test.php';
+				$controller = new Test();
+
+				return false;
+			}
 			
 			// check if the controller exists
 			$file = 'controllers/' . $url[0] . '.php';
